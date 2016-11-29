@@ -1,0 +1,71 @@
+<?php get_header(); 
+
+$catName = single_cat_title('',FALSE);
+$popularArray = []; 
+$popularArray["Spor"][1] = "3495";
+$popularArray["Spor"][2] = "2582";
+$popularArray["Diyet"][1] = "305";
+$popularArray["Diyet"][2] = "3166";
+$popularArray["Sağlık"][1] = "3002";
+$popularArray["Sağlık"][2] = "2610";
+$popularArray["Yaşam"][1] = "3002";
+$popularArray["Yaşam"][2] = "2008";
+?>
+
+<div class="postTop" id="postTopId" style="background-image:url(<?php echo bloginfo('template_directory'); ?>/img/category/<?php echo get_cat_ID($catName); ?>.jpg);">
+	<div class="postTopCover">
+		<div class="carrier">
+				<h1 id="contentTitle"><?php echo $catName; ?> Kategorisi</h1>
+		</div>
+	</div>
+</div>
+<div class="categoryCarrier">
+<div class="carrier">
+
+	<div class="categoryDesc"><?php echo category_description();?></div>
+	<div class="clear"></div>
+	
+	<?php if ( $paged < 2 ) : ?><div class="popularPostCarrier">
+		<?php
+		$args = array( 'include' => $popularArray[$catName]);
+		$postslist = get_posts( $args );
+		foreach ( $postslist as $post ) :
+		  setup_postdata( $post ); ?> 
+			<div class="popularPostItem">
+				<a href="<?php the_permalink() ?>"><img src="<?php the_post_thumbnail_url(array(200,100)); ?>"></a>
+				<a href="<?php the_permalink() ?>"><h5><?php the_title(); ?></h5></a>   
+				<div class="desc"><?php the_excerpt(); ?></div>
+				<a href="<?php the_permalink() ?>"><div class="button postAction">Devamını Oku</div></a>
+			</div>
+		<?php
+		endforeach; 
+		wp_reset_postdata();
+		?>
+	<div class="clear"></div>
+	</div>
+<?php endif; ?>
+	<div class="clear"></div>
+</div><!--carrier-->	
+	<div class="categoryPostCarrier">
+	<div class="carrier">
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+	<div class="listPostItem box">
+	<a href="<?php the_permalink() ?>"><img src="<?php the_post_thumbnail_url(array(730,300)); ?>"/></a>
+	<a href="<?php the_permalink() ?>"><h5><?php the_title(); ?></h5></a>
+	<div class="desc"><?php the_excerpt();?></div>
+<div class="clear"></div>
+	</div>
+<?php endwhile;?>
+<?php else: ?>
+
+<?php endif; ?>
+<div class="page-nav">
+<span class="older"><?php next_posts_link('&laquo; Önceki<div class="yazilar"> Yazılar</div>') ?></span><span class="newer"><?php previous_posts_link('Sonraki<div class="yazilar"> Yazılar</div> &raquo;') ?></span>
+</div><!-- end page-nav -->
+<div class="clear"></div>
+</div><!--carrier-->
+</div><!--CatpostCarrier-->
+</div><!--categoryCarrier-->
+<div class="placeholder"></div>
+<div class="clear"></div>
+<?php get_footer(); ?>
