@@ -98,7 +98,8 @@ body {
     line-height: 0px;
     border-radius: 3px;
     max-width: 100%;
-    opacity: 0.9
+    opacity: 0.9;
+    margin: auto;
 }
 .typography {
     font-family: 'PT Serif', serif;
@@ -107,7 +108,11 @@ body {
 .typography p {
     font-size: 1.15em;
     line-height: 1.6em;
+    word-spacing: 0.1em;
     color: rgba(0, 0, 0, .8);
+}
+.typography img {
+    max-width: 100%;
 }
 .typography p:first-of-type {
     font-size: 1.2em;
@@ -117,12 +122,12 @@ body {
     padding-top: 15px;
 }
 .postNav .prev {
-    width: calc(50%);
+    width: calc(50% - 10px);
     float: left;
     text-align: left;
 }
 .postNav .next {
-    width: calc(50%);
+    width: calc(50% - 10px);
     float: right;
     text-align: right;
 }

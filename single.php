@@ -10,9 +10,9 @@ $cat_rel_name = $cat_array[0]->cat_name; ?>
 		<h1><?php the_title(); ?></h1>
 		<div class="desc">
 				<div class="user">
-						<img src="<?php echo bloginfo('template_directory'); ?>/img/avatar.png" />
-						<div class="name">Elena White</div>
-						<div class="title">Written 2 days ago &middot; 5 min read</div>
+						<?php echo get_avatar( get_the_author_meta( 'ID' ), 40 ); ?>
+						<div class="name"><?php the_author_posts_link(); ?></div>
+						<div class="title">Written <?php echo ago("@".get_post_time('U', true)); ?> &middot; <?php echo read_time(); ?> min read</div>
 				</div>
 				<div class="hot">
 						<i class="material-icons">whatshot</i> <?php

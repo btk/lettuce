@@ -82,7 +82,7 @@ function lettuceComments($comment, $args, $depth) {
 
     <div class="reply">
         <?php comment_reply_link( array_merge( $args, array( 'add_below' => $add_below, 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
-				<div class="response">
+				<div class="response" id="responseToggle">
 					<div class="responseCount">1 Response</div>
 					<div class="icon responses"></div>
 				</div>
@@ -92,6 +92,41 @@ function lettuceComments($comment, $args, $depth) {
     <?php endif; ?>
     <?php
     }
+		function ago($datetime, $full = false) {
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
+
+    if (!$full) $string = array_slice($string, 0, 1);
+    return $string ? implode(', ', $string) . ' ago' : 'just now';
+}
+
+function read_time() {
+    $content = get_post_field( 'post_content', $post->ID );
+    $word_count = str_word_count( strip_tags( $content ) );
+    return round($word_count/200) + 1;
+}
+
 
   add_filter('admin_footer_text', 'remove_footer_admin');
 	add_filter('widget_text', 'do_shortcode');
