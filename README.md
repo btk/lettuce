@@ -1,2 +1,2 @@
 # lettuce
-Simple mobile first wordpress blog theme.
+(WIP) Simple mobile first wordpress blog theme.
